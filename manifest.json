@@ -1,0 +1,30 @@
+{
+  "name": "THE SYSTEM — Solo Leveling Life",
+  "short_name": "THE SYSTEM",
+  "description": "Convierte tu vida en un RPG. Cumple misiones, gana XP, sube de nivel.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0818",
+  "theme_color": "#0a0818",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
