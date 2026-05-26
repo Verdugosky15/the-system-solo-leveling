@@ -1,5 +1,5 @@
 ====================================================
-  THE SYSTEM - Solo Leveling Life RPG  (v2.1)
+  THE SYSTEM - Solo Leveling Life RPG  (v1.1.0)
   Guia de uso e instalacion
 ====================================================
 
@@ -77,3 +77,17 @@ CONTENIDO DE LA APP:
 - Tus datos se guardan en el dispositivo.
 
 ARISE, HUNTER.
+
+------------------------------------------------------
+NOVEDADES v1.1.0:
+------------------------------------------------------
+- Atributos del Cazador: Fuerza, Inteligencia,
+  Resistencia, Velocidad, Vitalidad. Suben al
+  completar misiones.
+- Inventario / Boveda: 8 items que se desbloquean
+  al acumular XP total.
+- Puerta de Concentracion: cronometro Pomodoro
+  (15/25/50 min). Terminar una sesion da XP.
+- Tira de dias de la semana con el dia actual.
+- Mejor racha (record) junto a la racha actual.
+- Credito "By Kevin V." y version en el menu.

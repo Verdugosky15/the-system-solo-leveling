@@ -16,6 +16,7 @@
     --bg:#0a0818; --panel:#13102a; --panel-2:#1b1638; --border:#2e2658;
     --glow:#9d8bff; --glow-dim:#6b5bc4; --text:#e6e2ff; --text-dim:#8b85b8;
     --gold:#f0b440; --green:#3ddc8a; --danger:#ff4d6d;
+    --str:#ff6b5b; --int:#9d8bff; --sta:#5bb8ff; --spd:#3ddc8a; --vit:#ff8fc7;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
@@ -27,7 +28,7 @@
   }
   ::selection{background:var(--glow);color:#0a0818;}
 
-  .hdr{text-align:center;margin-bottom:18px;padding-top:44px;}
+  .hdr{text-align:center;margin-bottom:14px;padding-top:44px;}
   .hdr .crest{font-size:11px;letter-spacing:4px;color:var(--glow-dim);text-transform:uppercase;}
   .hdr h1{
     font-family:Georgia,'Times New Roman',serif;
@@ -37,20 +38,19 @@
     text-shadow:0 0 30px rgba(157,139,255,0.3);
   }
   .hdr .sub{font-size:11px;color:var(--text-dim);letter-spacing:1px;margin-top:2px;}
+  .hdr .by{font-size:10px;color:var(--glow-dim);letter-spacing:1px;margin-top:6px;}
+  .hdr .ver{font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-top:1px;}
 
-  /* Controles de audio en header */
   .audio-ctrl{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:16px;display:flex;gap:8px;}
   .audio-ctrl button{
     width:38px;height:38px;border-radius:10px;border:1px solid var(--border);
     background:var(--panel-2);color:var(--text);font-size:16px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-  }
+    display:flex;align-items:center;justify-content:center;}
   .audio-ctrl button.off{color:var(--text-dim);opacity:0.5;}
 
   .panel{
     background:var(--panel);border:1px solid var(--border);border-radius:16px;
-    padding:16px;margin-bottom:14px;position:relative;
-  }
+    padding:16px;margin-bottom:14px;position:relative;}
   .panel::before,.panel::after{content:'';position:absolute;width:10px;height:10px;border:1px solid var(--glow);}
   .panel::before{top:-1px;left:-1px;border-right:0;border-bottom:0;}
   .panel::after{bottom:-1px;right:-1px;border-left:0;border-top:0;}
@@ -60,13 +60,22 @@
   .quote .q{font-size:14px;font-style:italic;line-height:1.5;}
   .quote .src{font-size:11px;color:var(--text-dim);margin-top:6px;letter-spacing:0.5px;}
 
+  /* Tira de dias de la semana */
+  .week-strip{display:flex;gap:5px;margin-bottom:14px;}
+  .day-cell{flex:1;background:var(--panel);border:1px solid var(--border);
+    border-radius:9px;padding:7px 2px;text-align:center;}
+  .day-cell.today{background:var(--glow-dim);border-color:var(--glow);
+    box-shadow:0 0 12px rgba(157,139,255,0.4);}
+  .day-cell .dn{font-size:9px;color:var(--text-dim);letter-spacing:0.5px;}
+  .day-cell.today .dn{color:#fff;}
+  .day-cell .dd{font-size:15px;font-weight:bold;margin-top:1px;}
+
   .status-row{display:flex;align-items:center;gap:14px;}
   .lvl-badge{
     width:64px;height:64px;flex-shrink:0;border-radius:50%;
     background:radial-gradient(circle,#2a2258,#13102a);border:2px solid var(--glow);
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    box-shadow:0 0 20px rgba(157,139,255,0.35);
-  }
+    box-shadow:0 0 20px rgba(157,139,255,0.35);}
   .lvl-badge .l{font-size:9px;color:var(--glow);letter-spacing:1px;}
   .lvl-badge .n{font-size:26px;font-weight:bold;font-family:Georgia,serif;line-height:1;}
   .status-info{flex:1;min-width:0;}
@@ -79,6 +88,17 @@
     transition:width 0.6s cubic-bezier(.2,.8,.2,1);}
   .meta{font-size:11px;color:var(--text-dim);margin-top:6px;display:flex;gap:12px;flex-wrap:wrap;}
   .meta b{color:var(--text);}
+
+  /* Atributos del cazador */
+  .attrs{display:flex;flex-direction:column;gap:9px;}
+  .attr{display:flex;align-items:center;gap:10px;}
+  .attr .ic{width:24px;height:24px;flex-shrink:0;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;}
+  .attr .nm{font-size:12px;width:78px;flex-shrink:0;color:var(--text-dim);}
+  .attr .tk{flex:1;height:10px;background:#0a0818;border:1px solid var(--border);
+    border-radius:5px;overflow:hidden;}
+  .attr .fl{height:100%;border-radius:4px;transition:width .5s;}
+  .attr .vl{font-size:11px;font-weight:bold;width:30px;text-align:right;}
 
   .sec-title{display:flex;justify-content:space-between;align-items:center;margin:18px 4px 10px;}
   .sec-title h2{font-size:15px;font-weight:600;letter-spacing:0.5px;}
@@ -98,6 +118,7 @@
   .card.done .label{text-decoration:line-through;color:var(--text-dim);}
   .card .xp-tag{font-size:11px;color:var(--glow);font-weight:600;}
   .card .fixed-tag{font-size:10px;color:var(--text-dim);}
+  .card .attr-tag{font-size:9px;padding:1px 6px;border-radius:6px;margin-left:3px;font-weight:600;}
   .icon-btn{width:28px;height:28px;flex-shrink:0;background:transparent;border:0;
     color:var(--text-dim);font-size:16px;cursor:pointer;}
 
@@ -113,8 +134,9 @@
     border-radius:10px;padding:10px 12px;font-size:13px;font-family:inherit;}
   input[type=text]{flex:1;min-width:0;}
   input[type=text]::placeholder{color:var(--text-dim);}
-  select{width:92px;}
+  select{width:84px;}
   input:focus,select:focus{outline:0;border-color:var(--glow);}
+  .add-row.three select{width:auto;flex:1;}
 
   button.btn{width:100%;padding:12px;border-radius:11px;font-size:13.5px;font-weight:600;
     font-family:inherit;cursor:pointer;border:1px solid var(--border);
@@ -140,13 +162,40 @@
     font-weight:600;background:var(--glow);border:0;border-radius:8px;color:#0a0818;cursor:pointer;}
   .notif-banner.ok{border-color:var(--green);color:var(--green);}
 
-  /* Historial XP */
   .hist-bars{display:flex;align-items:flex-end;gap:5px;height:90px;padding:8px 4px 0;}
   .hist-bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
   .hist-bar .bar{width:100%;background:linear-gradient(180deg,var(--glow),var(--glow-dim));
     border-radius:4px 4px 0 0;min-height:3px;transition:height .5s;}
   .hist-bar .day{font-size:9px;color:var(--text-dim);}
   .hist-bar .val{font-size:9px;color:var(--glow);font-weight:600;}
+
+  /* Inventario */
+  .inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .inv-item{background:var(--panel);border:1px solid var(--border);border-radius:12px;
+    padding:12px 8px;text-align:center;position:relative;}
+  .inv-item.unlocked{border-color:rgba(240,180,64,0.5);background:rgba(240,180,64,0.05);}
+  .inv-item .emoji{font-size:32px;line-height:1;}
+  .inv-item.locked .emoji{filter:grayscale(1) brightness(0.5);}
+  .inv-item .nm{font-size:11px;margin-top:6px;font-weight:600;}
+  .inv-item .req{font-size:10px;color:var(--text-dim);margin-top:2px;}
+  .inv-item.unlocked .req{color:var(--gold);}
+  .inv-item .lock{position:absolute;top:8px;right:8px;font-size:12px;}
+
+  /* Pomodoro */
+  .pomo{text-align:center;}
+  .pomo-time{font-family:Georgia,serif;font-size:54px;font-weight:bold;
+    letter-spacing:2px;margin:6px 0;}
+  .pomo-time.running{color:var(--glow);text-shadow:0 0 25px rgba(157,139,255,0.5);}
+  .pomo-state{font-size:11px;letter-spacing:2px;color:var(--text-dim);margin-bottom:14px;}
+  .pomo-presets{display:flex;gap:8px;margin-bottom:10px;}
+  .pomo-presets button{flex:1;padding:12px 4px;border-radius:10px;font-size:13px;
+    font-weight:600;border:1px solid var(--border);background:var(--panel-2);
+    color:var(--text);cursor:pointer;font-family:inherit;}
+  .pomo-presets button.sel{background:var(--glow-dim);border-color:var(--glow);color:#fff;}
+  .pomo-presets button .u{display:block;font-size:9px;color:var(--text-dim);}
+  .pomo-presets button.sel .u{color:#cdc4ff;}
+  .pomo-actions{display:flex;gap:8px;}
+  .pomo-actions button{flex:1;}
 
   #toast{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 16px);
     z-index:150;pointer-events:none;display:flex;flex-direction:column;}
@@ -158,9 +207,8 @@
   .toast.nag{background:linear-gradient(180deg,#a3122d,#6b0a1d);border:1px solid var(--danger);color:#ffd5dc;}
   .toast.gold{background:linear-gradient(180deg,#c98f1e,#9c6e10);border:1px solid var(--gold);color:#fff;}
 
-  .footer{text-align:center;font-size:10px;color:var(--text-dim);margin-top:18px;letter-spacing:1px;}
+  .footer{text-align:center;font-size:10px;color:var(--text-dim);margin-top:18px;letter-spacing:1px;line-height:1.6;}
 
-  /* LEVEL UP overlay */
   #levelup{position:fixed;inset:0;z-index:200;display:none;
     align-items:center;justify-content:center;background:rgba(10,8,24,0.92);}
   #levelup.show{display:flex;animation:fade .3s;}
@@ -178,20 +226,15 @@
   .lu-card .rankup{font-size:14px;color:var(--gold);margin-top:8px;}
   .lu-card .tap{font-size:11px;color:var(--text-dim);margin-top:24px;letter-spacing:1px;}
 
-  /* ============ INTRO EPICA ============ */
   #intro{position:fixed;inset:0;z-index:500;background:#05040d;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    overflow:hidden;}
+    display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
   #intro.hide{animation:introOut .8s forwards;}
   @keyframes introOut{to{opacity:0;visibility:hidden;}}
   .intro-glyphs{position:absolute;inset:0;overflow:hidden;}
   .glyph{position:absolute;color:#9d8bff;opacity:0;font-family:Georgia,serif;
     font-size:20px;animation:glyphFloat 3s ease-out forwards;}
-  @keyframes glyphFloat{
-    0%{opacity:0;transform:translateY(40px) scale(0.5);}
-    30%{opacity:0.7;}
-    100%{opacity:0;transform:translateY(-60px) scale(1.2);}
-  }
+  @keyframes glyphFloat{0%{opacity:0;transform:translateY(40px) scale(0.5);}
+    30%{opacity:0.7;}100%{opacity:0;transform:translateY(-60px) scale(1.2);}}
   .intro-core{text-align:center;position:relative;z-index:2;}
   .intro-crest{font-size:13px;letter-spacing:6px;color:var(--glow-dim);
     opacity:0;animation:fadeIn 1s .3s forwards;}
@@ -205,12 +248,12 @@
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
     opacity:0;animation:ariseIn 1.4s 1.8s cubic-bezier(.2,.8,.2,1) forwards;
     text-shadow:0 0 40px rgba(157,139,255,0.5);}
-  @keyframes ariseIn{
-    0%{opacity:0;transform:scale(2.5);letter-spacing:30px;filter:blur(12px);}
-    100%{opacity:1;transform:scale(1);letter-spacing:8px;filter:blur(0);}
-  }
+  @keyframes ariseIn{0%{opacity:0;transform:scale(2.5);letter-spacing:30px;filter:blur(12px);}
+    100%{opacity:1;transform:scale(1);letter-spacing:8px;filter:blur(0);}}
   .intro-tag{font-size:12px;letter-spacing:3px;color:var(--text-dim);
     opacity:0;animation:fadeIn 1s 3s forwards;margin-top:14px;}
+  .intro-by{font-size:11px;letter-spacing:2px;color:var(--glow-dim);
+    opacity:0;animation:fadeIn 1s 3.3s forwards;margin-top:8px;}
   .intro-flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:3;
     pointer-events:none;animation:flash 1.4s 1.8s;}
   @keyframes flash{0%{opacity:0;}8%{opacity:0.85;}100%{opacity:0;}}
@@ -229,13 +272,11 @@
   @keyframes pulseBtn{0%,100%{transform:translateX(-50%) scale(1);}
     50%{transform:translateX(-50%) scale(1.05);}}
   .intro-prompt{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 150px);
-    left:0;right:0;text-align:center;font-size:12px;color:var(--text-dim);
-    letter-spacing:1px;}
+    left:0;right:0;text-align:center;font-size:12px;color:var(--text-dim);letter-spacing:1px;}
 </style>
 </head>
 <body>
 
-<!-- ===================== INTRO EPICA ===================== -->
 <div id="intro">
   <div class="intro-glyphs" id="intro-glyphs"></div>
   <div class="intro-flash"></div>
@@ -253,6 +294,7 @@
     </div>
     <div class="intro-arise">ARISE</div>
     <div class="intro-tag">HUNTER &middot; EL DESPERTAR COMIENZA</div>
+    <div class="intro-by">BY KEVIN V. &middot; v1.1.0</div>
   </div>
   <div class="intro-prompt" id="intro-prompt">Toca INICIAR para despertar al Sistema</div>
   <button id="intro-start">INICIAR</button>
@@ -268,12 +310,16 @@
   <div class="crest">&#10220; The System &#10221;</div>
   <h1>THE SYSTEM</h1>
   <div class="sub">MODO HARDCORE &middot; ARISE, HUNTER</div>
+  <div class="by">BY KEVIN V.</div>
+  <div class="ver">VERSION 1.1.0</div>
 </div>
 
 <div id="notif-banner" class="notif-banner" style="display:none;">
   <span id="notif-text">Activa las notificaciones para que el Sistema te vigile.</span>
   <button id="notif-btn">Activar</button>
 </div>
+
+<div class="week-strip" id="week-strip"></div>
 
 <div class="panel quote">
   <div class="q" id="quote-text">"El que se levanta mas veces de las que cae, gana."</div>
@@ -294,10 +340,19 @@
       <div class="xp-track"><div class="xp-fill" id="xp-fill"></div></div>
       <div class="meta">
         <span>Racha: <b id="streak">0</b> &#128293;</span>
+        <span>Mejor: <b id="best-streak">0</b> &#127942;</span>
         <span>Total: <b id="total-xp">0</b> XP</span>
       </div>
     </div>
   </div>
+</div>
+
+<div class="sec-title">
+  <h2>Atributos del Cazador</h2>
+  <span class="pill">suben con misiones</span>
+</div>
+<div class="panel">
+  <div class="attrs" id="attrs"></div>
 </div>
 
 <div class="seg">
@@ -311,7 +366,7 @@
 </div>
 <div id="task-list"></div>
 
-<div class="add-row">
+<div class="add-row three">
   <input type="text" id="new-task" placeholder="Nueva mision..." autocomplete="off">
   <select id="new-xp">
     <option value="10">+10 XP</option>
@@ -320,7 +375,41 @@
     <option value="100">+100 XP</option>
   </select>
 </div>
-<button class="btn primary" id="add-task" style="margin-bottom:6px;">+ AGREGAR MISION</button>
+<div class="add-row" style="margin-bottom:8px;">
+  <select id="new-attr">
+    <option value="">Sin atributo</option>
+    <option value="str">+ Fuerza</option>
+    <option value="int">+ Inteligencia</option>
+    <option value="sta">+ Resistencia</option>
+    <option value="spd">+ Velocidad</option>
+    <option value="vit">+ Vitalidad</option>
+  </select>
+  <button class="btn primary" id="add-task" style="flex:1;">+ AGREGAR MISION</button>
+</div>
+
+<div class="sec-title">
+  <h2>Puerta de Concentracion</h2>
+  <span class="pill">Pomodoro</span>
+</div>
+<div class="panel pomo">
+  <div class="pomo-time" id="pomo-time">25:00</div>
+  <div class="pomo-state" id="pomo-state">LISTO PARA ENFOCARSE</div>
+  <div class="pomo-presets">
+    <button data-min="15">15<span class="u">MIN</span></button>
+    <button data-min="25" class="sel">25<span class="u">MIN</span></button>
+    <button data-min="50">50<span class="u">MIN</span></button>
+  </div>
+  <div class="pomo-actions">
+    <button class="btn primary" id="pomo-start">INICIAR</button>
+    <button class="btn ghost" id="pomo-reset">REINICIAR</button>
+  </div>
+</div>
+
+<div class="sec-title">
+  <h2>Inventario</h2>
+  <span class="pill" id="inv-count">0/8</span>
+</div>
+<div class="inv-grid" id="inv-grid"></div>
 
 <div class="sec-title">
   <h2>Historial de XP</h2>
@@ -338,7 +427,10 @@
 
 <button class="btn ghost" id="reset-day" style="margin-top:6px;">&#8635; NUEVO DIA (reiniciar misiones)</button>
 
-<div class="footer">&#10220; SOLO TU PUEDES NIVELARTE &#10221;</div>
+<div class="footer">
+  &#10220; SOLO TU PUEDES NIVELARTE &#10221;<br>
+  THE SYSTEM v1.1.0 &middot; By Kevin V.
+</div>
 
 <div id="toast"></div>
 

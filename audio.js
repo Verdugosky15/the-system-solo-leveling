@@ -115,6 +115,31 @@
       const t = ctx.currentTime;
       tone(146.83, t, 0.3, 'sawtooth', 0.3);
       tone(138.59, t + 0.18, 0.4, 'sawtooth', 0.3);
+    },
+    // Atributo ganado: doble nota ascendente corta
+    attr(){
+      if(!sfxOn) return; ensureCtx();
+      const t = ctx.currentTime;
+      tone(659.25, t, 0.25, 'triangle', 0.2);
+      tone(987.77, t + 0.08, 0.3, 'triangle', 0.22);
+    },
+    // Item desbloqueado en el inventario: brillo cristalino largo
+    unlock(){
+      if(!sfxOn) return; ensureCtx();
+      const t = ctx.currentTime;
+      noiseBurst(t, 0.3, 0.25, sfxGain, 2200);
+      [783.99, 1046.5, 1318.5, 1568, 2093].forEach((f,i)=>{
+        tone(f, t + i*0.06, 0.7, 'sine', 0.2);
+      });
+    },
+    // Fin de sesion Pomodoro: campana de logro
+    timerDone(){
+      if(!sfxOn) return; ensureCtx();
+      const t = ctx.currentTime;
+      [523.25, 659.25, 783.99].forEach((f,i)=>{
+        tone(f, t + i*0.15, 1.0, 'triangle', 0.3);
+      });
+      tone(1046.5, t + 0.45, 1.4, 'sine', 0.25);
     }
   };
 
